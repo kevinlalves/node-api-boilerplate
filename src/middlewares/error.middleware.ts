@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { NextFunction, Request, Response } from 'express';
 
 const errorMiddleware = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  let statusCode: number, message: string;
+  let statusCode: number;
 
   switch (err.name) {
     case 'UnauthorizedError':
@@ -23,7 +23,7 @@ const errorMiddleware = (err: Error, req: Request, res: Response, next: NextFunc
       err.message = 'There was an unexpected error, try again in a few minutes';
   }
 
-  console.log(chalk.red(err));
+  console.error(err);
   res.status(statusCode).send({ message: err.message });
 };
 
